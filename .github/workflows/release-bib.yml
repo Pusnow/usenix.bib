@@ -46,16 +46,16 @@ jobs:
       - name: Update pdf-link
         run: |
           python3 scripts/generate-pdf-links.py &&\
-            git add pdf-link &&\
-            git commit -m "[pdf-link] $(cat version.txt)" &&\
-            git push
+            (git add pdf-link || true) &&\
+            (git commit -m "[pdf-link] $(cat version.txt)" || true) &&\
+            (git push || true)
 
       - name: Generate CSV
         run: |
           python3 scripts/generate-csv.py &&\
-            git add usenix.csv &&\
-            git commit -m "[usenix.csv] $(cat version.txt)" &&\
-            git push
+            (git add usenix.csv || true) &&\
+            (git commit -m "[usenix.csv] $(cat version.txt)" || true) &&\
+            (git push || true)
 
       - name: Create release
         run: |
