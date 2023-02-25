@@ -37,3 +37,9 @@ jobs:
           if [ -f changed ]; then gh release create -t $(cat version.txt) -F version.txt $(cat version.txt) usenix.bib version.txt; fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Update bib
+        run: |
+          if [ -f changed ]; then python3 scripts/split-bib.py && gh add bib && gh commit -m "[bib] $(cat version.txt)" && gh push; fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
