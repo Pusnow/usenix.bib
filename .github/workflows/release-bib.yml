@@ -26,6 +26,6 @@ jobs:
 
       - name: Create release
         run: |
-          [ -f changed ] && gh release create $(date '+%Y-%m-%d') usenix.bib
+          if [ -f changed ]; then gh release create $(date '+%Y-%m-%d') usenix.bib; fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
