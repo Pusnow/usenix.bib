@@ -2,23 +2,23 @@ name: release-bib
 
 on:
   workflow_dispatch:
-  
+
   schedule:
     - cron: "0 1 * * 0"
 
 jobs:
   release-bib:
     runs-on: ubuntu-latest
-    
+
     permissions:
       contents: write
-    
+
     steps:
       - uses: actions/checkout@v3
 
       - name: Download usenix.bib
         run: wget -O usenix.bib https://www.usenix.org/biblio/export/bibtex
-        
+
       - name: Download usenix.bib.old
         run: |
           wget -O usenix.bib.old https://github.com/Pusnow/usenix.bib/releases/latest/download/usenix.bib || true
@@ -26,8 +26,7 @@ jobs:
       - name: Diff files
         run: |
           diff usenix.bib usenix.bib.old || touch changed
-          
-          
+
       - name: Make version file
         run: |
           date '+%Y-%m-%d' > version.txt
@@ -36,7 +35,7 @@ jobs:
         run: |
           git config --local user.email "wonsup@pusnow.com" &&\
           git config --local user.name "Wonsup Yoon"
-          
+
       - name: Update bib
         run: |
           if [ -f changed ]; then python3 scripts/split-bib.py &&\
@@ -49,6 +48,13 @@ jobs:
           python3 scripts/generate-pdf-links.py &&\
             git add pdf-link &&\
             git commit -m "[pdf-link] $(cat version.txt)" &&\
+            git push
+
+      - name: Generate CSV
+        run: |
+          python3 scripts/generate-csv.py &&\
+            git add usenix.csv &&\
+            git commit -m "[usenix.csv] $(cat version.txt)" &&\
             git push
 
       - name: Create release
