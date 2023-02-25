@@ -68,9 +68,13 @@ with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
     future_to_url = {
         executor.submit(download_url, job[0], job[1]): job for job in JOBS
     }
+    total = len(JOBS)
+    start = 1
     for future in concurrent.futures.as_completed(future_to_url):
         id = future_to_url[future][0]
         url = future_to_url[future][1]
+        print("[%s/%s] Processing (%s)" % (start, total, id))
+        start += 1
         try:
             data = future.result().decode("utf8")
         except Exception as exc:
