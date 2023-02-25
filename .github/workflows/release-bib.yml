@@ -34,6 +34,6 @@ jobs:
 
       - name: Create release
         run: |
-          if [ -f changed ]; then gh release create $(cat version.txt) usenix.bib version.txt; fi
+          if [ -f changed ]; then gh release create -t $(cat version.txt) -F version.txt $(cat version.txt) usenix.bib version.txt; fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
