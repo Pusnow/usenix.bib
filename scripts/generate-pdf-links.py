@@ -25,6 +25,11 @@ URL_SPECIAL_REPLACES = {
     "d{\\textquoteright}antoni": "d'antoni",
 }
 
+URL_FIX_ID = {
+    "187158": "https://www.usenix.org/conference/hotdep14/workshop-program/presentation/xu",
+    "179424": "https://www.usenix.org/conference/hotpar13/workshop-program/presentation/shefﬁeld",
+}
+
 URL_REPLACES = {
     "{\\textemdash}": "—",
     "{\\textendash}": "–",
@@ -40,7 +45,11 @@ URL_REPLACES = {
 }
 
 
-def fix_url(url):
+def fix_url(id, url):
+
+    if id in URL_FIX_ID:
+        url = URL_FIX_ID[id]
+
     for mp in [URL_SPECIAL_REPLACES, URL_REPLACES]:
         for key in mp:
             if key in url:
@@ -99,7 +108,7 @@ with open("usenix.bib", "r", encoding="utf8") as usenix_file:
         elif year and year.group(1) == "Submitted":
             continue
 
-        fixed_url = fix_url(url)
+        fixed_url = fix_url(id, url)
         JOBS.append((id, fixed_url))
 
 
