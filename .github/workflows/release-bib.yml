@@ -40,6 +40,11 @@ jobs:
           
       - name: Update bib
         run: |
-          if [ -f changed ]; then python3 scripts/split-bib.py && gh add bib && gh commit -m "[bib] $(cat version.txt)" && gh push; fi
+          if [ -f changed ]; then python3 scripts/split-bib.py &&\
+            git config --local user.email "wonsup@pusnow.com" &&\
+            git config --local user.name "Wonsup Yoon" &&\
+            git add bib &&\
+            git commit -m "[bib] $(cat version.txt)" &&\
+            git push; fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
