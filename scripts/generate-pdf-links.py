@@ -2,7 +2,9 @@ import re
 import os
 from datetime import date
 import concurrent.futures
+import unicodedata
 import urllib.request
+import urllib.parse
 
 MONTH_MAP = {
     "jan": 1,
@@ -19,10 +21,45 @@ MONTH_MAP = {
     "dec": 12,
 }
 
+URL_SPECIAL_REPLACES = {
+    "d{\\textquoteright}antoni": "d'antoni",
+}
+
+URL_REPLACES = {
+    "{\\textemdash}": "—",
+    "{\\textendash}": "–",
+    "{\\textquoteright}": "’",
+    "{\\texttrademark}": "™",
+    "{\\textquotedblleft}": "“",
+    "{\\textquotedblright}": "”",
+    "{\\textbullet}": "•",
+    "{\\textregistered}": "®",
+    "{\\i}": "i",
+    "{\\'\\i}": "í",
+    "{\\c c}": "ç",
+}
+
+
+def fix_url(url):
+    for mp in [URL_SPECIAL_REPLACES, URL_REPLACES]:
+        for key in mp:
+            if key in url:
+                url = url.replace(key, mp[key])
+    url = re.sub(r"\{\\\"(.)\}", r"\1%s" % "\u0308", url)
+    url = re.sub(r"\{\\\'(.)\}", r"\1%s" % "\u0307", url)
+    url = re.sub(r"\{\\`(.)\}", r"\1%s" % "\u0300", url)
+    url = re.sub(r"\{\\\^(.)\}", r"\1%s" % "\u0302", url)
+    url = re.sub(r"\{\\~(.)\}", r"\1%s" % "\u0303", url)
+    url = re.sub(r"\{\\\=\{(.)\}\}", r"\1%s" % "\u0304", url)
+    url = unicodedata.normalize("NFC", url)
+
+    url = ":".join((urllib.parse.quote(a) for a in url.split(":")))
+
+    return url
+
 
 def download_url(id, url):
     with urllib.request.urlopen(url) as conn:
-        # print("Downloading %s (%s)" % (id, url))
         return conn.read()
 
 
@@ -61,13 +98,13 @@ with open("usenix.bib", "r", encoding="utf8") as usenix_file:
                 continue
         elif year and year.group(1) == "Submitted":
             continue
-        JOBS.append((id, url))
+
+        fixed_url = fix_url(url)
+        JOBS.append((id, fixed_url))
 
 
 with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
-    future_to_url = {
-        executor.submit(download_url, job[0], job[1]): job for job in JOBS
-    }
+    future_to_url = {executor.submit(download_url, job[0], job[1]): job for job in JOBS}
     total = len(JOBS)
     start = 1
     for future in concurrent.futures.as_completed(future_to_url):
