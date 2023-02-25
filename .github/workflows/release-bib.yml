@@ -15,8 +15,17 @@ jobs:
 
       - name: Download usenix.bib
         run: wget -O usenix.bib https://www.usenix.org/biblio/export/bibtex
+        
+      - name: Download usenix.bib.old
+        run: |
+          wget -O usenix.bib.old https://github.com/Pusnow/usenix.bib/releases/latest/download/usenix.bib || true
+
+      - name: Diff files
+        run: |
+          diff usenix.bib usenix.bib.old || touch changed
 
       - name: Create release
-        run: gh release create $(date '+%Y-%m-%d') usenix.bib
+        run: |
+          [ -f changed ] && gh release create $(date '+%Y-%m-%d') usenix.bib
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
