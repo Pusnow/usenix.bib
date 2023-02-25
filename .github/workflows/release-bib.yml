@@ -1,0 +1,22 @@
+name: release-bib
+
+on:
+  workflow_dispatch:
+
+jobs:
+  release-bib:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+    
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Download usenix.bib
+        run: wget -O usenix.bib https://www.usenix.org/biblio/export/bibtex
+
+      - name: Release usenix-bib
+        run: gh release upload $(date '+%Y-%m-%d') usenix.bib --clobber
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
