@@ -26,9 +26,14 @@ jobs:
       - name: Diff files
         run: |
           diff usenix.bib usenix.bib.old || touch changed
+          
+          
+      - name: Make version file
+        run: |
+          date '+%Y-%m-%d' > version.txt
 
       - name: Create release
         run: |
-          if [ -f changed ]; then gh release create $(date '+%Y-%m-%d') usenix.bib; fi
+          if [ -f changed ]; then gh release create $(cat version.txt) usenix.bib version.txt; fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
