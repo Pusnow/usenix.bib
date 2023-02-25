@@ -1,6 +1,5 @@
-http://www.usenix.org/membership/membership.html">Join</a> today!</td></tr> <tr><td colspan="2"><strong>All sessions will take place in Regency 2 Room unless otherwise noted.</strong></td></tr> <tr><td colspan="2">Conference papers are available only to registered attendees until the  opening day of the technical sessions; they then become available to  everyone. Everyone can view the proceedings front matter immediately.</td></tr> <tr><td colspan="2"><p><strong>Proceedings Front Matter</strong>:            <a href="http://usenix.org/event/nsdi10/tech/nsdi10_cover.pdf
-http://usenix.org/event/nsdi10/tech/nsdi10_fm.pdf
 http://usenix.org/event/nsdi10/tech/nsdi10_contents.pdf
-http://usenix.org/event/nsdi10/tech/nsdi10_message.pdf
+http://usenix.org/event/nsdi10/tech/nsdi10_cover.pdf
 http://usenix.org/event/nsdi10/tech/full_papers/nsdi10_proceedings.pdf
-http://www.usenix.org/nsdi10/epub">EPUB</a> format or Kindle-friendly <a href="http://www.usenix.org/nsdi10/mobi">Mobipocket</a> format.</p></td></tr></tbody></table><p><a href="http://usenix.org/event/nsdi10/tech/nsdi10_message.pdf
+http://usenix.org/event/nsdi10/tech/nsdi10_message.pdf
+http://usenix.org/event/nsdi10/tech/nsdi10_fm.pdf

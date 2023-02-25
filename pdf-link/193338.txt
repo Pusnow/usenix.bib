@@ -1,2 +1,2 @@
+https://www.usenix.org/sites/default/files/conference/protected-files/verdult_sec13_slides.pdf
 https://www.usenix.org/sites/default/files/sec13_web_flyer.pdf
-/biblio/export/bibtex/193338">Download</a></div></div></div></div></div></div><div class="field field-name-field-paper-slides field-type-file field-label-hidden"><div class="field-items"><div class="field-item odd"><div class="usenix-schedule-slides"><a href="https://www.usenix.org/sites/default/files/conference/protected-files/verdult_sec13_slides.pdf

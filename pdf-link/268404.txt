@@ -1,1 +1,1 @@
-/biblio/export/bibtex/268404">Download</a></div></div></div></div></div></div><div class="group-legacy-file-links field-group-div"><h3><span>Links</span></h3><div class="field field-name-field-presentation-slides field-type-link-field field-label-inline clearfix"><div class="field-label">Slides:&nbsp;</div><div class="field-items"><div class="field-item odd"><a href="http://usenix.org/events/lsf08/tech/Carlson_Accardi_powermgmt.pdf
+http://usenix.org/events/lsf08/tech/Carlson_Accardi_powermgmt.pdf

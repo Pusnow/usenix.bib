@@ -124,6 +124,8 @@ with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
         try:
             data = future.result().decode("utf8")
         except Exception as exc:
+            with open("pdf-link/%s.txt" % id, "w", encoding="utf8") as f:
+                f.write("not accessible")
             print("%s %r generated an exception: %s" % (id, url, exc))
         else:
             pdf = re.search(
@@ -133,5 +135,5 @@ with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
                 if pdf:
                     f.write(pdf.group(1).strip() + "\n")
                 else:
-                    for pdf_link in re.findall(r"href\s*?=\s*?\"(.*?\.pdf)\"", data):
+                    for pdf_link in set(re.findall(r"href\s*?=\s*?\"([^<>]*?\.pdf)\"", data)):
                         f.write(pdf_link.strip() + "\n")

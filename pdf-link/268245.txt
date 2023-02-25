@@ -1,5 +1,5 @@
-http://www.usenix.org/events/usenix08/tech/title.pdf
+http://www.usenix.org/events/usenix08/tech/message.pdf
 http://www.usenix.org/events/usenix08/tech/organizers.pdf
+http://www.usenix.org/events/usenix08/tech/title.pdf
 http://www.usenix.org/events/usenix08/tech/contents.pdf
 http://www.usenix.org/events/usenix08/tech/index.pdf
-http://www.usenix.org/events/usenix08/tech/message.pdf

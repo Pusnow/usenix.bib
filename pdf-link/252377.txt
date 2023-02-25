@@ -1,4 +1,4 @@
-http://usenix.org/event/usenix09/tech/usenix09_cover.pdf
-http://usenix.org/event/usenix09/tech/usenix09_fm.pdf
-http://usenix.org/event/usenix09/tech/usenix09_toc.pdf
 http://usenix.org/event/usenix09/tech/usenix09_msg.pdf
+http://usenix.org/event/usenix09/tech/usenix09_toc.pdf
+http://usenix.org/event/usenix09/tech/usenix09_fm.pdf
+http://usenix.org/event/usenix09/tech/usenix09_cover.pdf
