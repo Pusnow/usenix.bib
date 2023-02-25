@@ -16,7 +16,7 @@ jobs:
       - name: Download usenix.bib
         run: wget -O usenix.bib https://www.usenix.org/biblio/export/bibtex
 
-      - name: Release usenix-bib
-        run: gh release upload $(date '+%Y-%m-%d') usenix.bib --clobber
+      - name: Create release
+        run: gh release create $(date '+%Y-%m-%d') usenix.bib
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
