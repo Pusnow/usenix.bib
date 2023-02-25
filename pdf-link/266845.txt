@@ -1,0 +1,2 @@
+http://www.usenix.org/events/hotstorage11/tech/slides/twigg.pdf
+http://www.usenix.org/events/hotstorage11/tech/slides/lloyd.pdf
