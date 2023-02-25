@@ -32,19 +32,27 @@ jobs:
         run: |
           date '+%Y-%m-%d' > version.txt
 
-      - name: Create release
+      - name: Git config
         run: |
-          if [ -f changed ]; then gh release create -t $(cat version.txt) -F version.txt $(cat version.txt) usenix.bib version.txt; fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          git config --local user.email "wonsup@pusnow.com" &&\
+          git config --local user.name "Wonsup Yoon"
           
       - name: Update bib
         run: |
           if [ -f changed ]; then python3 scripts/split-bib.py &&\
-            git config --local user.email "wonsup@pusnow.com" &&\
-            git config --local user.name "Wonsup Yoon" &&\
             git add bib &&\
             git commit -m "[bib] $(cat version.txt)" &&\
             git push; fi
+
+      - name: Update pdf-link
+        run: |
+          python3 scripts/generate-pdf-links.py &&\
+            git add pdf-link &&\
+            git commit -m "[pdf-link] $(cat version.txt)" &&\
+            git push
+
+      - name: Create release
+        run: |
+          if [ -f changed ]; then gh release create -t $(cat version.txt) -F version.txt $(cat version.txt) usenix.bib version.txt; fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
