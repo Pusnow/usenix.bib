@@ -48,14 +48,14 @@ jobs:
           python3 scripts/generate-pdf-links.py
           if ! git diff --exit-code pdf-link; then git add pdf-link  &&\
             git commit -m "[pdf-link] $(cat version.txt)" &&\
-            git push
+            git push; fi
 
       - name: Generate CSV
         run: |
           python3 scripts/generate-csv.py
           if ! git diff --exit-code usenix.csv; then git add usenix.csv &&\
             git commit -m "[usenix.csv] $(cat version.txt)" &&\
-            git push
+            git push; fi
 
       - name: Create release
         run: |
