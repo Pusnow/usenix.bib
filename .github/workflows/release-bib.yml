@@ -52,13 +52,10 @@ jobs:
 
       - name: Generate CSV
         run: |
-          python3 scripts/generate-csv.py
-          if ! git diff --exit-code usenix.csv; then git add usenix.csv &&\
-            git commit -m "[usenix.csv] $(cat version.txt)" &&\
-            git push; fi
+          if [ -f changed ]; then python3 scripts/generate-csv.py; fi
 
       - name: Create release
         run: |
-          if [ -f changed ]; then gh release create -t $(cat version.txt) -F version.txt $(cat version.txt) usenix.bib version.txt; fi
+          if [ -f changed ]; then gh release create -t $(cat version.txt) -F version.txt $(cat version.txt) usenix.bib usenix.csv version.txt; fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
