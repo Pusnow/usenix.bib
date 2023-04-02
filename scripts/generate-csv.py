@@ -4,21 +4,6 @@ import os
 from datetime import date
 
 
-MONTH_MAP = {
-    "jan": 1,
-    "feb": 2,
-    "mar": 3,
-    "apr": 4,
-    "may": 5,
-    "jun": 6,
-    "jul": 7,
-    "aug": 8,
-    "sep": 9,
-    "oct": 10,
-    "nov": 11,
-    "dec": 12,
-}
-
 with open("usenix.csv", "w", newline="") as csvfile:
     csv_writer = csv.writer(csvfile)
     csv_writer.writerow(["ID", "Book Title", "Title", "Authors", "PDFs"])
@@ -36,13 +21,7 @@ with open("usenix.csv", "w", newline="") as csvfile:
             month = re.search(r"month = (.*?),", bib)
 
             # skip not published
-            if year and month:
-                year = int(year.group(1))
-                month = MONTH_MAP[month.group(1)]
-                today = date.today()
-                if year >= today.year and month >= today.month:
-                    continue
-            elif year and year.group(1) == "Submitted":
+            if year and year.group(1) == "Submitted":
                 continue
 
             title = re.search(r"title = \{(.*?)\},", bib)
