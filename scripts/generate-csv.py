@@ -4,9 +4,31 @@ import os
 from datetime import date
 
 
+def get_matched(mtch):
+    if mtch:
+        return mtch.group(1)
+    else:
+        return ""
+
+
 with open("usenix.csv", "w", newline="") as csvfile:
     csv_writer = csv.writer(csvfile)
-    csv_writer.writerow(["ID", "Book Title", "Title", "Authors", "PDFs"])
+    csv_writer.writerow(
+        [
+            "id",
+            "author",
+            "title",
+            "booktitle",
+            "year",
+            "isbn",
+            "address",
+            "pages",
+            "url",
+            "publisher",
+            "month",
+            "pdf",
+        ]
+    )
 
     with open("usenix.bib", "r", encoding="utf8") as usenix_file:
         usenix_bib = usenix_file.read()
@@ -27,13 +49,23 @@ with open("usenix.csv", "w", newline="") as csvfile:
             title = re.search(r"title = \{(.*?)\},", bib)
             booktitle = re.search(r"booktitle = \{.*\((.*?)\).*\},", bib)
             author = re.search(r"author = \{(.*?)\},", bib)
+            isbn = re.search(r"isbn = \{(.*?)\},", bib)
+            address = re.search(r"address = \{(.*?)\},", bib)
+            pages = re.search(r"pages = \{(.*?)\},", bib)
+            url = re.search(r"url = \{(.*?)\},", bib)
+            publisher = re.search(r"publisher = \{(.*?)\},", bib)
 
-            if not title or not booktitle or not author:
-                continue
+            title = get_matched(title)
+            booktitle = get_matched(booktitle)
+            author = get_matched(author)
+            isbn = get_matched(isbn)
+            address = get_matched(address)
+            pages = get_matched(pages)
+            url = get_matched(url)
+            publisher = get_matched(publisher)
 
-            title = title.group(1)
-            booktitle = booktitle.group(1)
-            author = author.group(1)
+            year = get_matched(year)
+            month = get_matched(month)
 
             pdf_link_path = "pdf-link/%s.txt" % id
             pdf_links = ""
@@ -43,4 +75,19 @@ with open("usenix.csv", "w", newline="") as csvfile:
                     pdf_links = [link for link in pdf_links]
                     pdf_links = ";".join(pdf_links)
 
-            csv_writer.writerow([id, booktitle, title, author, pdf_links])
+            csv_writer.writerow(
+                [
+                    id,
+                    author,
+                    title,
+                    booktitle,
+                    year,
+                    isbn,
+                    address,
+                    pages,
+                    url,
+                    publisher,
+                    month,
+                    pdf_links,
+                ]
+            )
