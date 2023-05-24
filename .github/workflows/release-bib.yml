@@ -50,12 +50,16 @@ jobs:
             git commit -m "[pdf-link] $(cat version.txt)" &&\
             git push; fi
 
+      - name: Compress bib
+        run: |
+          if [ -f changed ]; then zip usenix.bib.zip usenix.bib; gzip -k usenix.bib; fi
+
       - name: Generate CSV
         run: |
-          if [ -f changed ]; then python3 scripts/generate-csv.py; fi
+          if [ -f changed ]; then python3 scripts/generate-csv.py; zip usenix.csv.zip usenix.csv; gzip -k usenix.csv; fi
 
       - name: Create release
         run: |
-          if [ -f changed ]; then gh release create -t $(cat version.txt) -F version.txt $(cat version.txt) usenix.bib usenix.csv version.txt; fi
+          if [ -f changed ]; then gh release create -t $(cat version.txt) -F version.txt $(cat version.txt) usenix.bib usenix.bib.zip usenix.bib.gz usenix.csv usenix.csv.zip usenix.csv.gz version.txt; fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
