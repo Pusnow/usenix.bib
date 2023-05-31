@@ -46,14 +46,14 @@ with open("usenix.csv", "w", newline="") as csvfile:
             if year and year.group(1) == "Submitted":
                 continue
 
-            title = re.search(r"title = \{(.*?)\},", bib)
-            booktitle = re.search(r"booktitle = \{.*\((.*?)\).*\},", bib)
-            author = re.search(r"author = \{(.*?)\},", bib)
-            isbn = re.search(r"isbn = \{(.*?)\},", bib)
-            address = re.search(r"address = \{(.*?)\},", bib)
-            pages = re.search(r"pages = \{(.*?)\},", bib)
-            url = re.search(r"url = \{(.*?)\},", bib)
-            publisher = re.search(r"publisher = \{(.*?)\},", bib)
+            title = re.search(r"title = \{(.*?)\},\s*\n", bib)
+            booktitle = re.search(r"booktitle = \{.*\((.*?)\).*\},\s*\n", bib)
+            author = re.search(r"author = \{(.*?)\},\s*\n", bib)
+            isbn = re.search(r"isbn = \{(.*?)\},\s*\n", bib)
+            address = re.search(r"address = \{(.*?)\},\s*\n", bib)
+            pages = re.search(r"pages = \{(.*?)\},\s*\n", bib)
+            url = re.search(r"url = \{(.*?)\},\s*\n", bib)
+            publisher = re.search(r"publisher = \{(.*?)\},\s*\n", bib)
 
             title = get_matched(title)
             booktitle = get_matched(booktitle)
