@@ -39,7 +39,7 @@ jobs:
       - name: Update bib
         run: |
           python3 scripts/split-bib.py
-          if ! git diff --exit-code bib; then git add bib &&\
+          if [ -n "$(git status bib --porcelain)" ]; then git add bib &&\
             git commit -m "[bib] $(cat version.txt)" &&\
             git push; fi
 
