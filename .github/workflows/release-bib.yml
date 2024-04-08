@@ -46,7 +46,7 @@ jobs:
       - name: Update pdf-link
         run: |
           python3 scripts/generate-pdf-links.py
-          if ! git diff --exit-code pdf-link; then git add pdf-link  &&\
+          if [ -n "$(git status pdf-link --porcelain)" ]; then git add pdf-link  &&\
             git commit -m "[pdf-link] $(cat version.txt)" &&\
             git push; fi
 
